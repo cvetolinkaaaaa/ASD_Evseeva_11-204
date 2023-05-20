@@ -1,13 +1,16 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class TreeRealisation {
     public static class Node {
         int value;
-        Node leftChild;
-        Node rightChild;
+        Node left;
+        Node right;
 
         public Node(int value) {
             this.value = value;
-            this.leftChild = null;
-            this.rightChild = null;
+            this.left = null;
+            this.right= null;
         }
     }
     public static class Tree{
@@ -25,10 +28,10 @@ public class TreeRealisation {
                 return newNode;
             }
             if (root.value > value) {
-                root.leftChild = add(root.leftChild, value);
+                root.left = add(root.left, value);
             }
             if (root.value < value) {
-                root.rightChild = add(root.rightChild, value);
+                root.right = add(root.right, value);
             }
             return root;
         }
@@ -42,12 +45,25 @@ public class TreeRealisation {
             if (node.value == value) {
                 return true;
             } else if (value > node.value) {
-                return contains(node.leftChild, value);
+                return contains(node.left, value);
             } else if (value < node.value) {
-                return contains(node.rightChild, value);
+                return contains(node.right, value);
             }
             return false;
         }
+        void BFS() {
+            Queue<Node> queue = new LinkedList<Node>();
+            queue.add(root);
+            while (!queue.isEmpty()) {
+                Node tempNode = queue.poll();
+                System.out.print(tempNode.value + " ");
+                if (tempNode.left != null)
+                    queue.add(tempNode.left);
+                if (tempNode.right != null)
+                    queue.add(tempNode.right);
+            }
+        }
+
 
     }
 
